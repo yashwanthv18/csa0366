@@ -1,0 +1,75 @@
+if (balance_factor(root->left) >= 0)
+{
+root = rotate_right(root);
+}
+else
+{
+root->left = rotate_left(root->left);
+root = rotate_right(root);
+}
+}
+}
+else if (x < root->data)
+{
+root->left = delete(root->left, x);
+if (balance_factor(root) == -2)
+{
+if (balance_factor(root->right) <= 0)
+{
+root = rotate_left(root);
+}
+else
+{
+root->right = rotate_right(root->right);
+root = rotate_left(root);
+}
+}
+}
+else
+{
+if (root->right != NULL)
+{
+temp = root->right;
+while (temp->left != NULL)
+temp = temp->left;
+root->data = temp->data;
+root->right = delete(root->right, temp->data);
+if (balance_factor(root) == 2)
+{
+if (balance_factor(root->left) >= 0)
+{
+root = rotate_right(root);
+}
+else
+{
+root->left = rotate_left(root->left);
+root = rotate_right(root);
+}
+}
+}
+else
+{
+return (root->left);
+}
+}
+root->ht = height(root);
+return (root);
+}
+
+struct node* search(struct node* root, int key)
+{
+if (root == NULL)
+{
+return NULL;
+}
+if(root->data == key)
+{
+return root;
+}
+if(key > root->data)
+{
+search(root->right, key);
+}
+else
+{
+search(root->left, key); }}
